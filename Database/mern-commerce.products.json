@@ -1,0 +1,65 @@
+[{
+  "_id": {
+    "$oid": "65fc375d0341db94f1c754f6"
+  },
+  "name": "Smartphone",
+  "price": 599.99,
+  "description": "High-performance smartphone with advanced features.",
+  "category": "Electronics",
+  "brand": "ExampleBrand",
+  "color": "Black",
+  "stock_quantity": 100,
+  "image": "Smartphone.png"
+},
+{
+  "_id": {
+    "$oid": "65fc375d0341db94f1c754f7"
+  },
+  "name": "Laptop",
+  "price": 1099.99,
+  "description": "Powerful laptop for work and entertainment.",
+  "category": "Electronics",
+  "brand": "TechCo",
+  "color": "Silver",
+  "stock_quantity": 50,
+  "image": "Laptop.png"
+},
+{
+  "_id": {
+    "$oid": "65fc375d0341db94f1c754f8"
+  },
+  "name": "Wireless Headphones",
+  "price": 149.99,
+  "description": "Bluetooth headphones with noise-cancellation technology.",
+  "category": "Electronics",
+  "brand": "AudioTech",
+  "color": "White",
+  "stock_quantity": 75,
+  "image": "Wireless Headphones.png"
+},
+{
+  "_id": {
+    "$oid": "65fc375d0341db94f1c754f9"
+  },
+  "name": "Men's Watch",
+  "price": 199.99,
+  "description": "Stylish analog watch for men.",
+  "category": "Fashion",
+  "brand": "TimeMaster",
+  "color": "Black",
+  "stock_quantity": 30,
+  "image": "Men's Watch.png"
+},
+{
+  "_id": {
+    "$oid": "65fc375d0341db94f1c754fa"
+  },
+  "name": "Women's Handbag",
+  "price": 129.99,
+  "description": "Fashionable handbag for women.",
+  "category": "Fashion",
+  "brand": "ChicDesign",
+  "color": "Red",
+  "stock_quantity": 40,
+  "image": "Women's Handbag.png"
+}]
