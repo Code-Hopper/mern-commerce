@@ -28,7 +28,6 @@ let validateAdmin = async (req, res) => {
             res.status(400).json({ "message": "wrong id or password" })
         }
     }
-
 }
 
 export { test, validateAdmin }
