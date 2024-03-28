@@ -99,7 +99,7 @@ const LoginRegister = () => {
 
                   </form>
                 </div>
-                <div className="col">
+                <div className="col d-flex justify-content-center align-items-center">
                   <img className='img-fluid' src={RegisterUserFormImg} alt="" />
                 </div>
               </div>
