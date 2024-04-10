@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-
+import axios from "axios"
 import RegisterUserFormImg from "../media/register-user-form-img.jpg"
 
 import { FaRotate } from "react-icons/fa6";
@@ -18,7 +18,7 @@ const LoginRegister = () => {
     address_state: "",
     address_pin: "",
     dob: "",
-    gender: "",
+    gender: "N/A",
     password: "",
     cpassword: ""
   })
@@ -51,24 +51,49 @@ const LoginRegister = () => {
     }
   }
 
-  let handelRegisterFormSubmit = (event) => {
+  let handelRegisterFormSubmit = async (event) => {
     event.preventDefault()
-    isValidPassword ? console.log(customer) :
-      alert("Unable to Register User !!")
-    setCustomer({
-      name: "",
-      phone: "",
-      email: "",
-      address_street: "",
-      address_city: "",
-      address_state: "",
-      address_pin: "",
-      dob: "",
-      gender: "",
-      password: "",
-      cpassword: ""
-    })
+    if (isValidPassword) {
+      console.log(customer)
 
+      // sending data to db for user registration
+      let result;
+      try {
+
+        result = await axios({
+          method: 'post',
+          url: 'http://localhost:5000/api/user/register',
+          data: customer
+        });
+
+      } catch (err) {
+        console.log(`some error while register ${err} !`)
+      }
+
+      console.log(result.status)
+
+      if (result.status === 202) {
+        alert("Successfully Register Please Login !")
+      } else {
+        alert("Unable Register Please Login or try again later !")
+      }
+
+    } else {
+      alert("Unable to Register User !!")
+      setCustomer({
+        name: "",
+        phone: "",
+        email: "",
+        address_street: "",
+        address_city: "",
+        address_state: "",
+        address_pin: "",
+        dob: "",
+        gender: "N/A",
+        password: "",
+        cpassword: ""
+      })
+    }
   }
 
   return (
@@ -114,13 +139,13 @@ const LoginRegister = () => {
                       {/* make gender selection */}
                       <div className='register-form-gender-selection w-50 d-flex align-items-center justify-content-evenly'>
                         <div className='d-flex gap-2'>
-                          <span className='fw-bold'>Male</span><input className='form-radio' type="radio" name='gender' value="male" />
+                          <span className='fw-bold'>Male</span><input className='form-radio' onChange={handelRegisterInputChange} type="radio" name='gender' value="male" />
                         </div>
                         <div className='d-flex gap-2'>
-                          <span className='fw-bold'>Female</span><input className='form-radio' type="radio" name='gender' value="female" />
+                          <span className='fw-bold'>Female</span><input className='form-radio' onChange={handelRegisterInputChange} type="radio" name='gender' value="female" />
                         </div>
                         <div className='d-flex gap-2'>
-                          <span className='fw-bold'>Other's</span><input className='form-radio' type="radio" name='gender' value="other" />
+                          <span className='fw-bold'>Other's</span><input className='form-radio' onChange={handelRegisterInputChange} type="radio" name='gender' value="other" />
                         </div>
 
                       </div>
@@ -137,6 +162,7 @@ const LoginRegister = () => {
                         <input className='form-control' onChange={handelRegisterInputChange} type="text" placeholder='State' name="address_state" value={customer.address_state} />
 
                         <input className='form-control' onChange={handelRegisterInputChange} type="number" placeholder='Pin Code' name="address_pin" value={customer.address_pin} />
+
                       </div>
 
                     </div>
