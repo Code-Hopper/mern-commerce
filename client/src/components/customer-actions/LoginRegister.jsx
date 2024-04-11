@@ -23,6 +23,12 @@ const LoginRegister = () => {
     cpassword: ""
   })
 
+  // creating a popup for register user
+
+  let [registerStatus, setRegisterStatus] = useState("")
+
+  let [maderegisterCall , setMaderegisterCall] = useState(false)
+
   let [show, setShow] = useState(false)
 
   let [isValidPassword, setIsValidPassword] = useState(false)
@@ -55,27 +61,25 @@ const LoginRegister = () => {
     event.preventDefault()
     if (isValidPassword) {
       console.log(customer)
-
+      setMaderegisterCall(true)
       // sending data to db for user registration
       let result;
       try {
-
         result = await axios({
           method: 'post',
           url: 'http://localhost:5000/api/user/register',
           data: customer
         });
 
+        if (result.status === 202) {
+          alert("Successfully Register Please Login !")
+          setRegisterStatus(true)
+        }
+
       } catch (err) {
         console.log(`some error while register ${err} !`)
-      }
-
-      console.log(result.status)
-
-      if (result.status === 202) {
-        alert("Successfully Register Please Login !")
-      } else {
-        alert("Unable Register Please Login or try again later !")
+        alert("Already Registerd Please Login !")
+        setRegisterStatus(false)
       }
 
     } else {
@@ -116,8 +120,22 @@ const LoginRegister = () => {
               <h1>login form</h1>
             </div>
             <div class="tab-pane fade" id="register-form-container">
+
+              <div className='container'>
+                {
+                  maderegisterCall ? 
+                    registerStatus ?
+                  <div className='alert alert-success text-center fw-bolder'>Register Successfull Please Head to Login !</div> : 
+                  <div className='alert alert-danger text-center fw-bolder'>Already Registered With This Email Please Login !</div>
+                  : ""
+                }
+              </div>
+
               <div className="row">
                 <div className="col">
+
+
+
                   <form onSubmit={handelRegisterFormSubmit} id='register-user-form' className='w-100 h-100 d-flex flex-column justify-content-center py-5 gap-3'>
                     <div className='form-heading'>
                       <h1 className='fw-light'>Register <span className='text-primary fw-bold'>User</span></h1>
