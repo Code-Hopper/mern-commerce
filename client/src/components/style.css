@@ -1,1 +1,23 @@
 /* to style the components */
+
+/* user login form */
+
+.user-login-password-filed{
+    border: 1px solid #000000;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+
+}
+
+.user-login-password-filed input , .user-login-password-filed input:focus{
+    border: none !important;
+    outline: none !important; 
+    box-shadow: none !important;
+}
+
+.user-login-password-filed button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+}

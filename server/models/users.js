@@ -14,7 +14,9 @@ let userRegisterSchema = mongoose.Schema({
     password: String,
     cpassword: String,
     timeStamp: String,
+    token: Array
 })
+
 
 userRegisterSchema.pre("save", async function (next) {
 
@@ -28,6 +30,8 @@ userRegisterSchema.pre("save", async function (next) {
 
         console.log(`hased password is ${this.password} `)
 
+        this.timeStamp = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`
+
         next()
     }
     catch (err) {
@@ -37,6 +41,5 @@ userRegisterSchema.pre("save", async function (next) {
 })
 
 let registerUser = mongoose.model("users", userRegisterSchema)
-
 
 export { registerUser } 

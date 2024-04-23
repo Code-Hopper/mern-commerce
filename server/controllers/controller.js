@@ -1,4 +1,6 @@
 import "../database/conn.js"
+import bcrypt from "bcrypt"
+import { genrateToken } from "../middleware/GenerateToken.js"
 
 // importing admin model to make admin login
 import { admin } from "../models/admin.js"
@@ -31,30 +33,97 @@ let validateAdmin = async (req, res) => {
     }
 }
 
-let userRegister = async (req,res) =>{
+let userRegister = async (req, res) => {
     console.log(req.body)
 
     // check email for already registered users
 
-    let exists = await registerUser.find({ email: req.body.email })
+    try {
 
-    console.log(exists)
+        let exists = await registerUser.find({ email: req.body.email })
 
-    if(exists != 0){
-        console.log("user already exists in database !")
-        res.status(300).json({message:"unable to register" , reason: "user already exists !"})
-    }else{
+        console.log(exists)
 
-        let newUser = new registerUser(req.body) 
+        if (exists != 0) {
+            console.log("user already exists in database !")
+            res.status(300).json({ message: "unable to register", reason: "user already exists !" })
+        } else {
 
-        let result = await newUser.save()
+            let newUser = new registerUser(req.body)
 
-        if(result){
-            console.log("user registred in database successfully !")
-            res.status(202).json({message:"user registred in database successfully "})
+            let result = await newUser.save()
+
+            if (result) {
+                console.log("user registred in database successfully !")
+                res.status(202).json({ message: "user registred in database successfully " })
+            }
+
         }
-
+    } catch (err) {
+        console.log("error while register backend")
+        console.log(err)
     }
 }
 
-export { test, validateAdmin , userRegister }
+let userLogin = async (req, res) => {
+
+    console.log(req.body)
+
+    let { email, password } = req.body
+
+    try {
+
+        // check if user is registred or not using email
+
+        let exists = await registerUser.findOne({ email: email })
+
+        if (!exists) {
+            console.log("not exists !")
+            res.status(400).json({ message: "user not found please register the user first !" })
+        } else {
+            // compare id and password with database id and password               
+
+            // 1. email exits
+            // 2. compare email id and password
+            // 3. email and password(encrypted)
+            // 4. compare password(encrypted) with password that is provided from login Form
+            // code for compare encrypted password in unencrypted
+
+            console.log(exists.password)
+
+            let isLogin = await bcrypt.compare(password, exists.password)
+
+            if (!isLogin) {
+                console.log("wrong password")
+                res.status(400).json({ message: "Email or Password is Invalid !" })
+            } else {
+                console.log("right password")
+                // genrate a token to make a successfully session
+
+                // we can crete a token here also or else use a middleware
+
+                let token = await genrateToken(email)
+
+                console.log("token is : ", token)
+
+                // save genrated token into database of the user using updateOne method
+
+                let saveToken = await registerUser.updateOne({ "email": email }, { $push: { "token": token } })
+
+                console.log(saveToken)
+
+                res.status(202).json({ message: `welcome, ${exists.name} !` })
+
+            }
+
+        }
+
+    } catch (err) {
+        console.log("err while login backend !")
+        console.log(err)
+    }
+
+
+}
+
+export { test, validateAdmin, userRegister, userLogin }

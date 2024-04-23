@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react'
 import axios from "axios"
 import RegisterUserFormImg from "../media/register-user-form-img.jpg"
+import "../style.css"
+import UserLoginImg from "../media/user-login.jpg"
 
 import { FaRotate } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
@@ -23,11 +25,17 @@ const LoginRegister = () => {
     cpassword: ""
   })
 
+
+  let [userLogin, setUserLogin] = useState({
+    email: "",
+    password: ""
+  })
+
   // creating a popup for register user
 
   let [registerStatus, setRegisterStatus] = useState("")
 
-  let [maderegisterCall , setMaderegisterCall] = useState(false)
+  let [maderegisterCall, setMaderegisterCall] = useState(false)
 
   let [show, setShow] = useState(false)
 
@@ -100,6 +108,34 @@ const LoginRegister = () => {
     }
   }
 
+  let handelLoginFormSubmit = async (event) => {
+    event.preventDefault()
+
+    // send data toward login route at backend !
+
+    let LoginResult;
+
+    try {
+
+      LoginResult = await axios({
+        method: 'post',
+        url: 'http://localhost:5000/api/user/login',
+        data: userLogin
+      })
+
+      console.log(LoginResult)
+
+    } catch (err) {
+      console.log("Some Error While Login : " + err)
+    }
+
+  }
+
+  let handelLoginInputChange = (event) => {
+    let { name, value } = event.target
+    setUserLogin({ ...userLogin, [name]: value })
+  }
+
   return (
     <>
 
@@ -117,17 +153,46 @@ const LoginRegister = () => {
           </ul>
           <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="login-form-container">
-              <h1>login form</h1>
+              <div className="row">
+                <div className="col">
+
+                  <form onSubmit={handelLoginFormSubmit} className='w-100 h-100 d-flex flex-column justify-content-center py-5 gap-3'>
+                    <div className='form-heading'>
+                      <h1 className='fw-light'>Login <span className='text-primary fw-bold'>Customer</span></h1>
+                    </div>
+                    <div>
+                      <input className='form-control' onChange={handelLoginInputChange} type="email" placeholder='User Email' name="email" value={userLogin.email} required />
+                    </div>
+                    <div className='d-flex flex-row gap-3 user-login-password-filed'>
+                      <input className='form-control' onChange={handelLoginInputChange} type={show ? "text" : "password"} placeholder='User Password' name='password' value={userLogin.password} required />
+                      <button className='' onClick={ShowHidePassword} type='button'>{show ? <FaEyeSlash /> : <FaEye />} </button>
+                    </div>
+
+                    <div className='register-user-form-cta d-flex gap-3'>
+                      {/* <buttton className="btn btn-success" type="submit" onClick={handelSubmitClick}>
+                        Register <MdOutlineAddReaction />
+                      </buttton> */}
+                      <input className='btn btn-success' type="submit" value="Login" />
+                      <buttton className="btn btn-danger" type="button">Reset <FaRotate /> </buttton>
+                    </div>
+
+                  </form>
+                </div>
+                <div className="col d-flex justify-content-center align-items-center">
+                  <img className='img-fluid' src={UserLoginImg} alt="" />
+                </div>
+              </div>
+
             </div>
             <div class="tab-pane fade" id="register-form-container">
 
               <div className='container'>
                 {
-                  maderegisterCall ? 
+                  maderegisterCall ?
                     registerStatus ?
-                  <div className='alert alert-success text-center fw-bolder'>Register Successfull Please Head to Login !</div> : 
-                  <div className='alert alert-danger text-center fw-bolder'>Already Registered With This Email Please Login !</div>
-                  : ""
+                      <div className='alert alert-success text-center fw-bolder'>Register Successfull Please Head to Login !</div> :
+                      <div className='alert alert-danger text-center fw-bolder'>Already Registered With This Email Please Login !</div>
+                    : ""
                 }
               </div>
 
