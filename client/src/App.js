@@ -12,6 +12,7 @@ import Product from "./components/pages/Product"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
 import LoginRegister from "./components/customer-actions/LoginRegister";
+import Account from "./components/customer-actions/Account";
 
 const App = () => {
 
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/customerlr" element={<CustomerLR />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/user/login-register" element={<LoginRegister />} />
+          <Route path="/user/account" element={<Account />} />
         </Routes>
       </BrowserRouter>
 

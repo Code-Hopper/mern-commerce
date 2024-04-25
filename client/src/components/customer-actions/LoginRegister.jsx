@@ -3,10 +3,12 @@ import axios from "axios"
 import RegisterUserFormImg from "../media/register-user-form-img.jpg"
 import "../style.css"
 import UserLoginImg from "../media/user-login.jpg"
+import { useNavigate } from 'react-router-dom'
 
 import { FaRotate } from "react-icons/fa6";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+
 
 
 const LoginRegister = () => {
@@ -25,11 +27,16 @@ const LoginRegister = () => {
     cpassword: ""
   })
 
+  let navigate = useNavigate()
 
   let [userLogin, setUserLogin] = useState({
     email: "",
     password: ""
   })
+
+  let [openLoginPopUp, setOpenLoginPopUp] = useState(false)
+
+  let [loginMessage, setLoginMessage] = useState("")
 
   // creating a popup for register user
 
@@ -123,12 +130,26 @@ const LoginRegister = () => {
         data: userLogin
       })
 
-      console.log(LoginResult)
+      console.log(LoginResult.data.message)
+      console.log(LoginResult.data.token)
+
+      // console.log(LoginResult.data.user)
+
+      setLoginMessage(LoginResult.data.message)
+
+      setOpenLoginPopUp(true)
+
+      localStorage.setItem("token",LoginResult.data.token)
+
+      navigate("/user/account")
 
     } catch (err) {
       console.log("Some Error While Login : " + err)
     }
+  }
 
+  let closeLoginMessagePopUp = () =>{
+    setOpenLoginPopUp(false)
   }
 
   let handelLoginInputChange = (event) => {
@@ -283,6 +304,16 @@ const LoginRegister = () => {
           </div>
         </div>
       </div>
+
+      {/* open pop-up section conditional */}
+
+      {
+        openLoginPopUp ?
+          <div id='displayLoginMessages' className='shadow-lg d-flex flex-column justify-content-center align-items-center'>
+            <h1 className='text-dark'>{loginMessage}</h1>
+            <button className='btn btn-danger btn' onClick={closeLoginMessagePopUp}>Close !</button>
+          </div> : null
+      }
 
       {/* footer here */}
 

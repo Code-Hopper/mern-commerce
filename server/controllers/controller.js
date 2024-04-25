@@ -79,7 +79,7 @@ let userLogin = async (req, res) => {
 
         if (!exists) {
             console.log("not exists !")
-            res.status(400).json({ message: "user not found please register the user first !" })
+            res.status(200).json({ message: "user not found please register the user first !" })
         } else {
             // compare id and password with database id and password               
 
@@ -95,7 +95,7 @@ let userLogin = async (req, res) => {
 
             if (!isLogin) {
                 console.log("wrong password")
-                res.status(400).json({ message: "Email or Password is Invalid !" })
+                res.status(200).json({ message: "Email or Password is Invalid !" })
             } else {
                 console.log("right password")
                 // genrate a token to make a successfully session
@@ -112,7 +112,7 @@ let userLogin = async (req, res) => {
 
                 console.log(saveToken)
 
-                res.status(202).json({ message: `welcome, ${exists.name} !` })
+                res.status(202).json({ message: "login was successful !", user: exists, token })
 
             }
 
@@ -123,7 +123,23 @@ let userLogin = async (req, res) => {
         console.log(err)
     }
 
+}
+
+let account = async (req, res) => {
+    try {
+
+
+        console.log("Welcome User !")
+        console.log(req.userData)
+
+        res.status(200).json({ message: "login success !", user: req.userData })
+
+    } catch (err) {
+        console.log("err while loading account page from backend !")
+        console.log(err)
+        res.status(401).json({ message: "login unsuccess !" })
+    }
 
 }
 
-export { test, validateAdmin, userRegister, userLogin }
+export { test, validateAdmin, userRegister, userLogin, account }

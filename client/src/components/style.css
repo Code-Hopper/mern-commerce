@@ -21,3 +21,16 @@
     border: none;
     outline: none;
 }
+
+/* login message pop-up */
+
+#displayLoginMessages{
+    width: 500px;
+    height: 350px;
+    background-color: var(--bs-light);
+    color: red;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
