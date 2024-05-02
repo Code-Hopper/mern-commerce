@@ -23,6 +23,7 @@ let Auth = async (req, res, next) => {
     }catch(err){
         console.log("unable to verify token !")
         console.log(err)
+        res.status(401).json({message:"unable to verify user !"})
     }
 }
 

@@ -14,7 +14,7 @@ let userRegisterSchema = mongoose.Schema({
     password: String,
     cpassword: String,
     timeStamp: String,
-    token: Array
+    token: String
 })
 
 

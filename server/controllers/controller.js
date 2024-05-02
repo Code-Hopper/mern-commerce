@@ -108,7 +108,7 @@ let userLogin = async (req, res) => {
 
                 // save genrated token into database of the user using updateOne method
 
-                let saveToken = await registerUser.updateOne({ "email": email }, { $push: { "token": token } })
+                let saveToken = await registerUser.updateOne({ "email": email }, { $set: { "token": token } })
 
                 console.log(saveToken)
 
@@ -127,8 +127,6 @@ let userLogin = async (req, res) => {
 
 let account = async (req, res) => {
     try {
-
-
         console.log("Welcome User !")
         console.log(req.userData)
 

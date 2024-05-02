@@ -34,3 +34,11 @@
     left: 50%;
     transform: translate(-50%,-50%);
 }
+
+/* user-dashboard */
+
+.user-dashboard{
+    min-height: 650px;
+    max-height: 850px;
+    height: 650px;
+}
