@@ -11,6 +11,9 @@ import Product from "./components/pages/Product"
 // importing bootstarp
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap/dist/js/bootstrap.bundle.min.js"
+
+// react icons
+
 import LoginRegister from "./components/customer-actions/LoginRegister";
 import Account from "./components/customer-actions/Account";
 

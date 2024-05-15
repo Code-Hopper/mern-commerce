@@ -1,8 +1,15 @@
 import React from 'react'
+import Navbar from '../common-sections/Navbar'
+import Footer from '../common-sections/Footer'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <>
+      {/* main navbar */}
+      <Navbar />
+      {/* comman footer */}
+      <Footer />
+    </>
   )
 }
 
