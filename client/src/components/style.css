@@ -2,7 +2,7 @@
 
 /* user login form */
 
-.user-login-password-filed{
+.user-login-password-filed {
     border: 1px solid #000000;
     border-top: 0;
     border-left: 0;
@@ -10,13 +10,14 @@
 
 }
 
-.user-login-password-filed input , .user-login-password-filed input:focus{
+.user-login-password-filed input,
+.user-login-password-filed input:focus {
     border: none !important;
-    outline: none !important; 
+    outline: none !important;
     box-shadow: none !important;
 }
 
-.user-login-password-filed button{
+.user-login-password-filed button {
     background-color: transparent;
     border: none;
     outline: none;
@@ -24,7 +25,7 @@
 
 /* login message pop-up */
 
-#displayLoginMessages{
+#displayLoginMessages {
     width: 500px;
     height: 350px;
     background-color: var(--bs-light);
@@ -32,13 +33,33 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 /* user-dashboard */
 
-.user-dashboard{
+.user-dashboard {
     min-height: 650px;
     max-height: 850px;
     height: 650px;
 }
+
+/* navbar starts */
+
+.main-serach-bar-container {
+    padding: 0 1%;
+    border-radius: 24px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.main-serach-bar-container .search-bar,
+.main-serach-bar-container .search-bar:focus,
+.main-serach-bar-container .catigories-selector,
+.main-serach-bar-container .catigories-selector:focus {
+    background-color: white;
+    border: none;
+    outline: none;
+}
+
+/* navbar ends */
